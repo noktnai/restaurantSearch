@@ -1,11 +1,10 @@
 <?php
-require "vendor/autoload.php";
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-$api_key = $_ENV['API_KEY'];
-$res = Api\Restaurant::getAll($_GET, $api_key);
-print_r($res);
-
+require "src/api.php";
+$res = (new Restaurant())->getAll($_GET);
+if (!$res) {
+    include("404.html");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,9 +14,12 @@ print_r($res);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 
-    <link rel="stylesheet" href="assets/uikit-3.14.3/uikit.min.css">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    
+    <title>search</title>
 </head>
 
 <body>
