@@ -5,6 +5,7 @@ if (!$res) {
     include("404.html");
     exit();
 }
+print_r($res);
 ?>
 
 <!DOCTYPE html>

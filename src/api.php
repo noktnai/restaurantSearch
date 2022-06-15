@@ -13,6 +13,7 @@ abstract class Api
 
     /**
      * 任意のパラメータを文字列に変換
+     * 空白（半角、全角）→+変換
      *
      * @param array $params
      * @return string
@@ -23,9 +24,16 @@ abstract class Api
         foreach ($params as $key => $value) {
             $string_params .= "&" . $key . "=" . $value;
         }
-        return $string_params;
+        return str_replace("　", "+", str_replace(" ", "+", $string_params));
     }
 
+    /**
+     * JSONで取得し、連想配列で返す
+     * NULL可能性あり
+     *
+     * @param string $url
+     * @return array
+     */
     protected function getJson($url)
     {
         $conn = curl_init();
@@ -39,11 +47,17 @@ abstract class Api
         return json_decode($res, true);
     }
 }
-
+/**
+ * リクルートWEBサービス ホットペッパーグルメ
+ * 店舗の一覧、詳細、ジャンルの取得
+ * 
+ * @link https://webservice.recruit.co.jp/doc/hotpepper/reference.html
+ */
 class Restaurant extends Api
 {
     private $api_key;
-    private $request_url = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/";
+    private $request_url = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/";
+    private $request_url_genre = "https://webservice.recruit.co.jp/hotpepper/genre/v1/";
 
     function __construct()
     {
@@ -52,6 +66,7 @@ class Restaurant extends Api
     }
     /**
      * 任意のパラメータからレストランの一覧を取得
+     * [results_available][results_start]等取得のため[results]内を返す
      *
      * @param array $params
      * @return array|false
@@ -60,7 +75,7 @@ class Restaurant extends Api
     {
         $url = $this->request_url . "?key=" . $this->api_key . parent::paramsToString($params) . "&format=json";
         $array = parent::getJson($url);
-        return (array_key_exists("error", $array["results"])) ? false : $array["results"];
+        return (!is_null($array) && array_key_exists("error", $array["results"])) ? false : $array["results"];
     }
 
     /**
@@ -73,8 +88,25 @@ class Restaurant extends Api
     {
         $url = $this->request_url . "?key=" . $this->api_key . "&id=" . $id . "&format=json";
         $array = parent::getJson($url);
-        if (array_key_exists("results_available", $array["results"]) && $array["results"]["results_available"] === 1) {
+        // 念の為、マッチ件数が1件か
+        if (!is_null($array) && array_key_exists("results_available", $array["results"]) && $array["results"]["results_available"] === 1) {
             return $array["results"]["shop"][0];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * ジャンルの取得
+     *
+     * @return array|false
+     */
+    function getGenre()
+    {
+        $url = $this->request_url_genre . "?key=" . $this->api_key . "&format=json";
+        $array = parent::getJson($url);
+        if (!array_key_exists("error", $array["results"])) {
+            return $array["results"]["genre"];
         } else {
             return false;
         }
