@@ -1,7 +1,8 @@
 <?php
 require "src/api.php";
-$res = (new Restaurant())->getGenre();
-if (!$res) {
+// ジャンルの取得
+$genres = (new Restaurant())->getGenre();
+if (!$genres) {
     include("404.html");
     exit();
 }
@@ -23,12 +24,12 @@ if (!$res) {
 </head>
 
 <body>
-    <div class="uk-background-secondary uk-position-fixed uk-position-top uk-position-z-index">
+    <div class="uk-background-secondary uk-position-fixed uk-width-expand uk-position-z-index">
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="/" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: bookmark; ratio: 0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
-                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a href="#"><span uk-icon="icon: bookmark; ratio:0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
+                <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>
@@ -44,18 +45,20 @@ if (!$res) {
                 <span class="uk-form-icon" uk-search-icon="ratio: 0.8"></span>
                 <input class="uk-search-input" style="font-size:18px;" type="search" name="keyword" placeholder="店名 住所 駅名">
             </div>
-            <input type="button" name="send" class="uk-button uk-button-primary uk-button-small" value="検索" onclick="submit();">
+            <input type="button" name="send" class="uk-button uk-button-primary uk-button-small" value="検索">
         </div>
+        <!--（絞り込み条件の表示）-->
     </div>
-
+    <!-- 絞り込み -->
     <div id="modal-center" class="uk-flex-top" uk-modal>
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded">
             <button class="uk-modal-close-default" type="button" uk-close></button>
-            <div class="uk-margin">
+            <h2 class="uk-modal-title">絞り込み</h2>
+            <div class="">
                 <label class="uk-form-label" for="form-stacked-select">現在地の取得</label>
                 <div class="uk-form-controls">
                     <select id="form-stacked-select" class="uk-select" name="range">
-                        <option value="0" checked>しない</option>
+                        <option value="0" selected>しない</option>
                         <option value="1">半径300m</option>
                         <option value="2">半径500m</option>
                         <option value="3">半径1km</option>
@@ -63,11 +66,12 @@ if (!$res) {
                         <option value="5">半径3km</option>
                     </select>
                 </div>
+                <span class="uk-label js_location"></span>
             </div>
-            <div class="uk-margin">
+            <div class="">
                 <label class="uk-form-label" for="form-stacked-text">ジャンル</label>
                 <div class="uk-form-controls">
-                    <?php foreach ($res as $genre) : ?>
+                    <?php foreach ($genres as $genre) : ?>
                         <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="genre" data-code="<?= $genre["code"] ?>">&nbsp;&nbsp;<?= $genre["name"] ?></label>
                     <?php endforeach; ?>
                 </div>
