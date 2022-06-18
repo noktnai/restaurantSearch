@@ -1,9 +1,16 @@
 let lat;
 let lng;
 
+// search.phpのみ
+let url = new URL(window.location.href);
+if (url.searchParams.has('lat') && url.searchParams.has('lng')) {
+    lat = url.searchParams.get('lat');
+    lng = url.searchParams.get('lng');
+    getLocationName();
+}
+
 $(function () {
     $("input[name='send']").click(function (e) {
-        var url = new URL(window.location.href);
         // 結果ページのurl追加
         var url_last = url.pathname.split("/").pop();
         if (url_last.includes(".php")) { // urlに.php（ファイルが含まれていたら遷移先urlと置換）
@@ -21,9 +28,11 @@ $(function () {
             url.searchParams.append("lng", lng);
             url.searchParams.append("range", range);
         }
+        var genre = "";
         $("input[name='genre']:checked").each(function () {
-            url.searchParams.append("genre", $(this).data("code"));
+            genre += "," + $(this).data("code");
         });
+        if (genre) url.searchParams.append("genre", genre.substring(1));
         $("input[name='other']:checked").each(function () {
             url.searchParams.append($(this).data("key"), 1);
         });
@@ -31,11 +40,17 @@ $(function () {
         // パラメータが一つでもあれば検索
         if (url.search) location.href = url;
     });
+
     $("select[name='range']").change(function (e) {
         // 位置情報表記を削除
         $(".js_location").text("");
         // val=0（しない）以外であれば位置情報の取得
-        if (Number($("select[name='range']").val())) getLocation();
+        if (Number($("select[name='range']").val())) {
+            // 位置情報取得まで検索不可
+            $("input[name='send']").css("pointer-events", "none");
+            $(".js_location").html("<div uk-spinner='ratio: 0.6' style='padding-bottom: 3px'></div>");
+            getLocation();
+        }
     });
 
     // enterキー、スマホ検索ボタン押されたらフォーカス外す（検索ボタンでの検索をさせる為）
@@ -53,11 +68,9 @@ function getLocation() {
         // 成功時処理
         lat = position.coords.latitude;
         lng = position.coords.longitude;
-        var url = "http://geoapi.heartrails.com/api/json?method=searchByGeoLocation&x=" + lng + "&y=" + lat;
-        $.getJSON(url, (data) => {
-            // 現在地の表示
-            $(".js_location").text(data.response.location[0].prefecture + data.response.location[0].city + data.response.location[0].town);
-        });
+        // 緯度経度の取得時点で検索可能状態に戻す
+        $("input[name='send']").css("pointer-events", "unset");
+        getLocationName();
     }, function (res) {
         switch (res.code) {
             case 1:
@@ -70,3 +83,18 @@ function getLocation() {
         $("select[name='range']").val(0);
     });
 };
+
+function getLocationName() {
+    var url = "https://aginfo.cgk.affrc.go.jp/ws/rgeocode.php?lat=" + lat + "&lon=" + lng + "&json";
+    $.getJSON(url, (data) => {
+        // 現在地の表示
+        $(".js_location").text(data.result.prefecture.pname + data.result.municipality.mname);
+    });
+    $.getJSON(url).done(function (data) {
+        // 現在地の表示
+        $(".js_location").text(data.result.prefecture.pname + data.result.municipality.mname);
+    }).fail(function () {
+        // 失敗時：緯度経度表示
+        $(".js_location").text("緯度" + lat + "経度" + lng);
+    });
+}

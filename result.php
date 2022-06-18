@@ -14,7 +14,7 @@ if (!$res) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?= $data["name"] ?></title>
+    <title><?= $res["name"] ?></title>
 
     <link rel="stylesheet" href="assets/uikit-3.14.3/uikit.min.css">
 </head>

@@ -33,7 +33,7 @@ if (!$res) {
     <div class="uk-position-fixed uk-width-expand uk-position-z-index-negative uk-height-viewport uk-background-cover" style="background-image: url(assets/img/first_view.png);"></div>
     <div class="uk-background-secondary uk-position-z-index" uk-sticky>
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
-            <a href="/" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
+            <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
                 <li><a href="#"><span uk-icon="icon: bookmark; ratio:0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
                 <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
@@ -46,7 +46,7 @@ if (!$res) {
         </a>
         <div class="uk-search uk-search-navbar uk-background-default uk-flex-1 uk-flex uk-flex-middle">
             <span class="uk-form-icon" uk-search-icon="ratio: 0.8"></span>
-            <input class="uk-search-input" style="font-size:18px;" type="search" name="keyword" placeholder="店名 住所 駅名">
+            <input class="uk-search-input" style="font-size:18px;" type="search" name="keyword" placeholder="店名 住所 駅名" value="<?= isset($_GET["keyword"]) ? $_GET["keyword"] : "" ?>">
         </div>
         <input type="button" name="send" class="uk-button uk-button-primary uk-button-small" value="検索">
     </div>
@@ -59,12 +59,12 @@ if (!$res) {
                 <label class="uk-form-label" for="form-stacked-select">現在地の取得</label>
                 <div class="uk-form-controls">
                     <select id="form-stacked-select" class="uk-select" name="range">
-                        <option value="0" selected>しない</option>
-                        <option value="1">半径300m</option>
-                        <option value="2">半径500m</option>
-                        <option value="3">半径1km</option>
-                        <option value="4">半径2km</option>
-                        <option value="5">半径3km</option>
+                        <option value="0" <?= !isset($_GET["range"]) ? "selected" : "" ?>>しない</option>
+                        <option value="1" <?= isset($_GET["range"]) && $_GET["range"] == 1 ? "selected" : "" ?>>半径300m</option>
+                        <option value="2" <?= isset($_GET["range"]) && $_GET["range"] == 2 ? "selected" : "" ?>>半径500m</option>
+                        <option value="3" <?= isset($_GET["range"]) && $_GET["range"] == 3 ? "selected" : "" ?>>半径1km</option>
+                        <option value="4" <?= isset($_GET["range"]) && $_GET["range"] == 4 ? "selected" : "" ?>>半径2km</option>
+                        <option value="5" <?= isset($_GET["range"]) && $_GET["range"] == 5 ? "selected" : "" ?>>半径3km</option>
                     </select>
                 </div>
                 <span class="uk-label js_location"></span>
@@ -73,17 +73,17 @@ if (!$res) {
                 <label class="uk-form-label" for="form-stacked-text">ジャンル</label>
                 <div class="uk-form-controls">
                     <?php foreach ($genres as $genre) : ?>
-                        <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="genre" data-code="<?= $genre["code"] ?>">&nbsp;&nbsp;<?= $genre["name"] ?></label>
+                        <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="genre" data-code="<?= $genre["code"] ?>" <?= isset($_GET["genre"]) && strpos($_GET["genre"], $genre["code"]) !== false ? "checked" : "" ?>>&nbsp;&nbsp;<?= $genre["name"] ?></label>
                     <?php endforeach; ?>
                 </div>
             </div>
             <div class="uk-margin">
                 <div class="uk-form-label">その他条件</div>
                 <div class="uk-form-controls">
-                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="parking">&nbsp;&nbsp;駐車場有</label>
-                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="course">&nbsp;&nbsp;コース有</label>
-                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="free_food">&nbsp;&nbsp;食べ放題</label>
-                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="free_drink">&nbsp;&nbsp;飲み放題</label>
+                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="parking" <?= isset($_GET["parking"]) && $_GET["parking"] == 1 ? "checked" : "" ?>>&nbsp;&nbsp;駐車場有</label>
+                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="course" <?= isset($_GET["course"]) && $_GET["course"] == 1 ? "checked" : "" ?>>&nbsp;&nbsp;コース有</label>
+                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="free_food" <?= isset($_GET["free_food"]) && $_GET["free_food"] == 1 ? "checked" : "" ?>>&nbsp;&nbsp;食べ放題</label>
+                    <label class="uk-margin-small-right"><input class="uk-checkbox" type="checkbox" name="other" data-key="free_drink" <?= isset($_GET["free_drink"]) && $_GET["free_drink"] == 1 ? "checked" : "" ?>>&nbsp;&nbsp;飲み放題</label>
                 </div>
             </div>
 
@@ -95,18 +95,16 @@ if (!$res) {
                 <div>
                     <article class="uk-comment uk-height-1-1 uk-comment-primary uk-visible-toggle uk-border-rounded uk-padding-small" tabindex="-1">
                         <header class="uk-comment-header uk-position-relative">
-                            <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                                <div class="uk-width-auto">
-                                    <div class="uk-overflow-hidden uk-border-rounded" style="height: 192px">
-                                        <img class="uk-comment-avatar uk-width-expand uk-border-rounded" src="<?= $shop["photo"]["pc"]["l"] ?>" alt="">
-                                    </div>
+                            <div class="uk-flex uk-flex-between">
+                                <div class="uk-width-5-6">
+                                    <img class="uk-border-rounded uk-height-max-small" src="<?= $shop["photo"]["pc"]["l"] ?>" alt="">
                                 </div>
-                                <div class="uk-width-auto">
-                                    <h4 class="uk-comment-title uk-margin-small-bottom"><a href="" class=""><?= $shop["name"] ?></a></h4>
-                                    <p class="uk-comment-meta uk-margin-remove"><?= $shop["genre"]["catch"] ?></p>
-                                </div>
+
+                                <div class="uk-flex-none"><span uk-icon="icon: star"></span></div>
                             </div>
-                            <div class="uk-position-top-right"><span uk-icon="icon: star"></span></div>
+
+                            <h4 class="uk-comment-title uk-margin-small-bottom"><a href="./result.php?id=<?= $shop["id"] ?>" class="uk-text-decoration-none"><?= $shop["name"] ?></a></h4>
+                            <p class="uk-comment-meta uk-margin-remove"><?= $shop["genre"]["catch"] ?></p>
                         </header>
                         <div class="uk-comment-body">
                             <dl class="uk-description-list uk-margin-remove">
