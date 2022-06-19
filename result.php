@@ -92,18 +92,22 @@ if (!$res) {
     </div>
     <main class="uk-margin-mediun-top uk-margin-large-bottom uk-width-5-6 uk-width-3-4@l uk-margin-auto">
         <div class="uk-comment-primary uk-padding-small uk-margin-small-top uk-margin-small-bottom uk-border-rounded">
-            <h4 class="uk-comment-title uk-margin-small-bottom">検索結果&nbsp;<strong><?= $res["results_available"] ?></strong>&nbsp;件中&nbsp;<strong><?= $res["results_start"] . "&nbsp;〜&nbsp;" . ($res["results_start"] + $res["results_returned"] - 1) ?></strong>&nbsp;件表示</h4>
+            <h4 class="uk-comment-title uk-margin-small-bottom">
+                検索結果&nbsp;<strong><?= $res["results_available"] ?></strong>&nbsp;件<?php if ($res["results_available"] != 0) : ?>中&nbsp;<strong><?= $res["results_start"] . "&nbsp;〜&nbsp;" . ($res["results_start"] + $res["results_returned"] - 1) ?></strong>&nbsp;件表示<?php endif; ?>
+            </h4>
             <div class="js_conditions">
 
             </div>
-            <div class="uk-flex uk-flex-between">
-                <!-- ページング -->
-                <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] != 1) ? "" : "uk-invisible" ?> js_back">前へ</button>
-                <div>
-                    <strong class="js_now"><?= ceil($res["results_start"] / 20) ?></strong>&nbsp;&#47;&nbsp;<strong><?= ceil($res["results_available"] / 20) ?></strong>
+            <?php if ($res["results_available"] != 0) : ?>
+                <div class="uk-flex uk-flex-between">
+                    <!-- ページング -->
+                    <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] != 1) ? "" : "uk-invisible" ?> js_back">前へ</button>
+                    <div>
+                        <strong class="js_now"><?= ceil($res["results_start"] / 20) ?></strong>&nbsp;&#47;&nbsp;<strong><?= ceil($res["results_available"] / 20) ?></strong>
+                    </div>
+                    <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] + 20 <= $res["results_available"]) ? "" : "uk-invisible" ?> js_next">次へ</button>
                 </div>
-                <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] + 20 <= $res["results_available"]) ? "" : "uk-invisible" ?> js_next">次へ</button>
-            </div>
+            <?php endif; ?>
         </div>
         <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
             <?php foreach ($res["shop"] as $shop) : ?>
@@ -111,14 +115,14 @@ if (!$res) {
                     <article class="uk-comment uk-height-1-1 uk-comment-primary uk-visible-toggle uk-border-rounded uk-padding-small" tabindex="-1">
                         <header class="uk-comment-header uk-position-relative">
                             <div class="uk-flex uk-flex-between">
-                                <div class="uk-width-5-6">
+                                <div class="uk-width-5-6 uk-height-small">
                                     <img class="uk-border-rounded uk-height-max-small" src="<?= $shop["photo"]["pc"]["l"] ?>" alt="">
                                 </div>
 
                                 <div class="uk-flex-none"><span uk-icon="icon: star"></span></div>
                             </div>
 
-                            <h4 class="uk-comment-title uk-margin-small-bottom"><a href="./result.php?id=<?= $shop["id"] ?>" class="uk-text-decoration-none"><?= $shop["name"] ?></a></h4>
+                            <h4 class="uk-comment-title uk-margin-small-bottom"><a href="./show.php?id=<?= $shop["id"] ?>" class="uk-text-decoration-none"><?= $shop["name"] ?></a></h4>
                             <p class="uk-comment-meta uk-margin-remove"><?= $shop["genre"]["catch"] ?></p>
                         </header>
                         <div class="uk-comment-body">
@@ -140,21 +144,24 @@ if (!$res) {
             <?php endforeach; ?>
         </div>
 
-        <div class="uk-comment-primary uk-padding-small uk-margin-small-top uk-margin-small-bottom uk-border-rounded">
-            <div class="uk-flex uk-flex-between">
-                <!-- ページング -->
-                <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] != 1) ? "" : "uk-invisible" ?> js_back">前へ</button>
-                <div>
-                    <strong><?= ceil($res["results_start"] / 20) ?></strong>&nbsp;&#47;&nbsp;<strong><?= ceil($res["results_available"] / 20) ?></strong>
+        <?php if ($res["results_available"] != 0) : ?>
+            <div class="uk-comment-primary uk-padding-small uk-margin-small-top uk-margin-small-bottom uk-border-rounded">
+                <div class="uk-flex uk-flex-between">
+                    <!-- ページング -->
+                    <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] != 1) ? "" : "uk-invisible" ?> js_back">前へ</button>
+                    <div>
+                        <strong><?= ceil($res["results_start"] / 20) ?></strong>&nbsp;&#47;&nbsp;<strong><?= ceil($res["results_available"] / 20) ?></strong>
+                    </div>
+                    <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] + 20 <= $res["results_available"]) ? "" : "uk-invisible" ?> js_next">次へ</button>
                 </div>
-                <button class="uk-button uk-button-small uk-button-primary uk-border-rounded <?= ($res["results_start"] + 20 <= $res["results_available"]) ? "" : "uk-invisible" ?> js_next">次へ</button>
             </div>
-        </div>
+        <?php endif; ?>
     </main>
-
-    <div class="uk-background-secondary uk-text-center uk-padding-small">
-        <a href="#" uk-totop uk-scroll></a>
-    </div>
+    <?php if ($res["results_returned"] >= 4) : ?>
+        <div class="uk-background-secondary uk-text-center uk-padding-small">
+            <a href="#" uk-totop uk-scroll></a>
+        </div>
+    <?php endif; ?>
 </body>
 
 </html>
