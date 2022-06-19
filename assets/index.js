@@ -7,9 +7,9 @@ $(function () {
         // 結果ページのurl追加
         var url_last = url.pathname.split("/").pop();
         if (url_last.includes(".php")) { // urlに.php（ファイルが含まれていたら遷移先urlと置換）
-            url.pathname = url.pathname.replace(url_last, "search.php")
+            url.pathname = url.pathname.replace(url_last, "result.php")
         } else {
-            url.pathname += "search.php"
+            url.pathname += "result.php"
         }
         // 各パラメータの付与
         url.search = "";
