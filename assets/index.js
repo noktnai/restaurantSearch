@@ -1,14 +1,7 @@
 let lat;
 let lng;
 
-// search.phpのみ
 let url = new URL(window.location.href);
-if (url.searchParams.has('lat') && url.searchParams.has('lng')) {
-    lat = url.searchParams.get('lat');
-    lng = url.searchParams.get('lng');
-    getLocationName();
-}
-
 $(function () {
     $("input[name='send']").click(function (e) {
         // 結果ページのurl追加
@@ -70,7 +63,7 @@ function getLocation() {
         lng = position.coords.longitude;
         // 緯度経度の取得時点で検索可能状態に戻す
         $("input[name='send']").css("pointer-events", "unset");
-        getLocationName();
+        setLocationName();
     }, function (res) {
         switch (res.code) {
             case 1:
@@ -84,12 +77,8 @@ function getLocation() {
     });
 };
 
-function getLocationName() {
+function setLocationName() {
     var url = "https://aginfo.cgk.affrc.go.jp/ws/rgeocode.php?lat=" + lat + "&lon=" + lng + "&json";
-    $.getJSON(url, (data) => {
-        // 現在地の表示
-        $(".js_location").text(data.result.prefecture.pname + data.result.municipality.mname);
-    });
     $.getJSON(url).done(function (data) {
         // 現在地の表示
         $(".js_location").text(data.result.prefecture.pname + data.result.municipality.mname);

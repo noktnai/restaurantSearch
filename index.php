@@ -1,5 +1,5 @@
 <?php
-require "src/api.php";
+require "src/restaurant.php";
 // ジャンルの取得
 $genres = (new Restaurant())->getGenre();
 if (!$genres) {
@@ -28,7 +28,7 @@ if (!$genres) {
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span uk-icon="icon: bookmark; ratio:0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
+                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
                 <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
