@@ -18,7 +18,8 @@ if (!$genres) {
     <script src="assets/uikit-3.14.3/uikit.min.js"></script>
     <script src="assets/uikit-3.14.3/uikit-icons.min.js"></script>
     <script src="assets/jquery-3.6.0.js"></script>
-    <script src="assets/index.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/list.js"></script>
 
     <title>レストラン検索App</title>
 </head>
@@ -27,9 +28,12 @@ if (!$genres) {
     <div class="uk-background-secondary uk-position-fixed uk-width-expand uk-position-z-index">
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
+            <form action="./list.php" method="post">
+                <input type="hidden" name="id">
+            </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
-                <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
+                <li><a href="./description.php"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>

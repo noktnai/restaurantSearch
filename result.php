@@ -24,7 +24,8 @@ if (!$res) {
     <script src="assets/uikit-3.14.3/uikit.min.js"></script>
     <script src="assets/uikit-3.14.3/uikit-icons.min.js"></script>
     <script src="assets/jquery-3.6.0.js"></script>
-    <script src="assets/index.js"></script>
+    <script src="assets/list.js"></script>
+    <script src="assets/search.js" defer></script>
     <script src="assets/result.js" defer></script>
 
     <title>レストラン検索App</title>
@@ -35,8 +36,11 @@ if (!$res) {
     <div class="uk-background-secondary uk-position-z-index" uk-sticky>
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
+            <form action="./list.php" method="post">
+                <input type="hidden" name="id">
+            </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
+                <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
                 <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
@@ -112,13 +116,13 @@ if (!$res) {
         <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
             <?php foreach ($res["shop"] as $shop) : ?>
                 <div>
-                    <article class="uk-comment uk-height-1-1 uk-comment-primary uk-visible-toggle uk-border-rounded uk-padding-small" tabindex="-1">
+                    <article class="uk-comment uk-height-1-1 uk-comment-primary uk-border-rounded uk-padding-small" tabindex="-1">
                         <header class="uk-comment-header uk-position-relative">
                             <div class="uk-flex uk-flex-between">
                                 <div class="uk-width-5-6 uk-height-small">
                                     <img class="uk-border-rounded uk-height-max-small" src="<?= $shop["photo"]["pc"]["l"] ?>" alt="">
                                 </div>
-                                <div class="uk-flex-none"><span class="uk-icon-button" uk-icon="icon: star"></span></div>
+                                <div class="uk-flex-none"><a tabindex="-1" class="js_addlist" data-id="<?= $shop["id"] ?>"><span class="uk-icon-button" uk-icon="icon: star; ratio: 0.8"></span></a></div>
                             </div>
                             <h4 class="uk-comment-title uk-margin-small-bottom"><a href="./show.php?id=<?= $shop["id"] ?>" class="uk-text-decoration-none"><?= $shop["name"] ?></a></h4>
                             <p class="uk-comment-meta uk-margin-remove"><?= $shop["genre"]["catch"] ?></p>

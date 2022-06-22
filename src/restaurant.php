@@ -43,6 +43,7 @@ class Restaurant
                         $query .= "&start=" . $start;
                     }
                     break;
+                case 'id':
                 case 'keyword':
                 case 'lat':
                 case 'lng':
@@ -66,7 +67,7 @@ class Restaurant
         if (is_null($array) || array_key_exists("error", $array["results"]) || $array["results"]["results_start"] > $array["results"]["results_available"]) {
             // null結果,error,無効ページ数によるマッチ数を上回る表示開始位置
             return false;
-        }else {
+        } else {
             return $array["results"];
         }
     }

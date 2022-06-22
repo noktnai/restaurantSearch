@@ -17,6 +17,7 @@ if (!$res) {
     <script src="assets/uikit-3.14.3/uikit.min.js"></script>
     <script src="assets/uikit-3.14.3/uikit-icons.min.js"></script>
     <script src="assets/jquery-3.6.0.js"></script>
+    <script src="assets/list.js"></script>
 
     <title><?= $res["name"] ?>&#65372;レストラン検索</title>
 </head>
@@ -26,8 +27,11 @@ if (!$res) {
     <div class="uk-background-secondary uk-position-z-index" uk-sticky>
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
+            <form action="./list.php" method="post">
+                <input type="hidden" name="id">
+            </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
+                <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
                 <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
@@ -44,10 +48,10 @@ if (!$res) {
                         <img class="uk-comment-avatar uk-border-rounded" src="<?= $res["photo"]["pc"]["l"] ?>" alt="">
                     </div>
                     <div class="uk-width-expand@s">
+                        <a tabindex="-1" class="uk-flex uk-flex-middle uk-text-decoration-none uk-text-muted uk-margin-small-bottom js_addlist" data-id="<?= $res["id"] ?>"><span uk-icon="icon: star; ratio: 0.8"></span><strong>検討リストに追加</strong></a>
                         <span class="uk-label"><?= $res["station_name"] ?>駅</span>
                         <span class="uk-label"><?= $res["genre"]["name"] ?></span>
                         <span class="uk-label"><?= isset($res["sub_genre"]["name"]) ? $res["sub_genre"]["name"] : "" ?></span>
-                        <p class="uk-flex uk-flex-middle"><span uk-icon="icon: star; ratio: 0.8"></span>検討リストに追加</p>
                         <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><?= $res["name"] ?></a></h4>
                         <p class="uk-comment-meta uk-margin-remove"><?= $res["genre"]["catch"] ?></p>
                         <p class="uk-comment-meta uk-margin-remove"><a href="<?= $res["urls"]["pc"] ?>" target="_blank" class="uk-text-decoration-none">ホットペッパーグルメで閲覧する</a></p>
