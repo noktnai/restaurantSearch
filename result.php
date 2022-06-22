@@ -36,7 +36,7 @@ if (!$res) {
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">保存済みリスト</span></a></li>
+                <li><a href="#"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
                 <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
@@ -118,10 +118,8 @@ if (!$res) {
                                 <div class="uk-width-5-6 uk-height-small">
                                     <img class="uk-border-rounded uk-height-max-small" src="<?= $shop["photo"]["pc"]["l"] ?>" alt="">
                                 </div>
-
-                                <div class="uk-flex-none"><span uk-icon="icon: star"></span></div>
+                                <div class="uk-flex-none"><span class="uk-icon-button" uk-icon="icon: star"></span></div>
                             </div>
-
                             <h4 class="uk-comment-title uk-margin-small-bottom"><a href="./show.php?id=<?= $shop["id"] ?>" class="uk-text-decoration-none"><?= $shop["name"] ?></a></h4>
                             <p class="uk-comment-meta uk-margin-remove"><?= $shop["genre"]["catch"] ?></p>
                         </header>
