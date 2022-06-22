@@ -21,7 +21,7 @@ if (isset($_POST["id"])) {
     <script src="assets/jquery-3.6.0.js"></script>
     <script src="assets/list.js"></script>
 
-    <title>レストラン検索App</title>
+    <title>検討リスト&#65372;レストラン検索</title>
 </head>
 
 <body>

@@ -41,7 +41,7 @@ if (!$res) {
             </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
                 <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
-                <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a href="./description.html"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>
@@ -60,7 +60,7 @@ if (!$res) {
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <h2 class="uk-modal-title">絞り込み</h2>
-            <div class="">
+            <div>
                 <label class="uk-form-label" for="form-stacked-select">現在地の取得</label>
                 <div class="uk-form-controls">
                     <select id="form-stacked-select" class="uk-select" name="range">
@@ -74,7 +74,7 @@ if (!$res) {
                 </div>
                 <span class="uk-label js_location"></span>
             </div>
-            <div class="">
+            <div>
                 <label class="uk-form-label" for="form-stacked-text">ジャンル</label>
                 <div class="uk-form-controls">
                     <?php foreach ($genres as $genre) : ?>

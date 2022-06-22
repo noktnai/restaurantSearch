@@ -32,7 +32,7 @@ if (!$res) {
             </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
                 <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
-                <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a href="./description.html"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>
@@ -48,7 +48,7 @@ if (!$res) {
                         <img class="uk-comment-avatar uk-border-rounded" src="<?= $res["photo"]["pc"]["l"] ?>" alt="">
                     </div>
                     <div class="uk-width-expand@s">
-                        <a tabindex="-1" class="uk-flex uk-flex-middle uk-text-decoration-none uk-text-muted uk-margin-small-bottom js_addlist" data-id="<?= $res["id"] ?>"><span uk-icon="icon: star; ratio: 0.8"></span><strong>検討リストに追加</strong></a>
+                        <a tabindex="-1" class="uk-flex uk-flex-middle uk-text-decoration-none uk-text-muted uk-margin-small-bottom js_addlist" data-id="<?= $res["id"] ?>"><span uk-icon="icon: star; ratio: 0.8"></span><strong class="uk-margin-small-left">検討リストに追加</strong></a>
                         <span class="uk-label"><?= $res["station_name"] ?>駅</span>
                         <span class="uk-label"><?= $res["genre"]["name"] ?></span>
                         <span class="uk-label"><?= isset($res["sub_genre"]["name"]) ? $res["sub_genre"]["name"] : "" ?></span>
