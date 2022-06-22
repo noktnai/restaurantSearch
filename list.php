@@ -34,7 +34,7 @@ if (isset($_POST["id"])) {
             </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
                 <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
-                <li><a href="#"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a href="./description.html"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>
@@ -42,7 +42,7 @@ if (isset($_POST["id"])) {
         <div class="uk-comment-primary uk-padding-small uk-margin-small-top uk-margin-small-bottom uk-border-rounded">
             <h4 class="uk-comment-title uk-margin-remove-bottom">検討リスト（最大10件）</h4>
         </div>
-        <?php if ($res) : ?>
+        <?php if ($res && $res["results_returned"] != 0) : ?>
             <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
                 <?php foreach ($res["shop"] as $shop) : ?>
                     <div>

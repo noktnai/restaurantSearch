@@ -21,7 +21,7 @@ if (!$genres) {
     <script src="assets/search.js"></script>
     <script src="assets/list.js"></script>
 
-    <title>レストラン検索App</title>
+    <title>レストラン検索</title>
 </head>
 
 <body>
