@@ -46,7 +46,7 @@ if (isset($_POST["id"])) {
             <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
                 <?php foreach ($res["shop"] as $shop) : ?>
                     <div>
-                        <article class="uk-comment uk-height-1-1 uk-comment-primary uk-border-rounded uk-padding-small" tabindex="-1">
+                        <article class="uk-comment uk-height-1-1 uk-comment-primary uk-border-rounded uk-padding-small">
                             <header class="uk-comment-header uk-position-relative">
                                 <div class="uk-flex uk-flex-between">
                                     <div class="uk-width-5-6 uk-height-small">

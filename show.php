@@ -52,7 +52,7 @@ if (!$res) {
                         <span class="uk-label"><?= $res["station_name"] ?>駅</span>
                         <span class="uk-label"><?= $res["genre"]["name"] ?></span>
                         <span class="uk-label"><?= isset($res["sub_genre"]["name"]) ? $res["sub_genre"]["name"] : "" ?></span>
-                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><?= $res["name"] ?></a></h4>
+                        <h4 class="uk-comment-title uk-margin-small"><?= $res["name"] ?></h4>
                         <p class="uk-comment-meta uk-margin-remove"><?= $res["genre"]["catch"] ?></p>
                         <p class="uk-comment-meta uk-margin-remove"><a href="<?= $res["urls"]["pc"] ?>" target="_blank" class="uk-text-decoration-none">ホットペッパーグルメで閲覧する</a></p>
                     </div>
