@@ -5,15 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/uikit-3.14.3/uikit.min.css" />
-    <script src="assets/uikit-3.14.3/uikit.min.js"></script>
-    <script src="assets/uikit-3.14.3/uikit-icons.min.js"></script>
-    <script src="assets/jquery-3.6.0.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit-icons.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <title>存在しないURL&#65372;レストラン検索</title>
 </head>
 
 <body>
-    <div class="uk-background-secondary uk-position-fixed uk-width-expand uk-position-z-index">
+    <div class="uk-position-fixed uk-width-expand uk-position-z-index-negative uk-height-viewport uk-background-cover" style="background-image: url(assets/img/first_view.png);"></div>
+    <div class="uk-background-secondary uk-position-z-index">
         <div class="uk-width-5-6 uk-width-3-4@l uk-margin-auto uk-flex uk-flex-between uk-flex-middle">
             <a href="./" class="uk-link-heading" style="color:white;">RestaurantSearch</a>
             <form action="./list.php" method="post">
@@ -21,16 +26,16 @@
             </form>
             <ul class="uk-subnav uk-subnav-divider" uk-margin>
                 <li><a tabindex="-1" class="js_tolist"><span uk-icon="icon: star; ratio: 0.8"></span><span class="uk-visible@s">検討リスト</span></a></li>
-                <li><a href="./description.php"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
+                <li><a href="./description.html"><span uk-icon="icon: info; ratio: 0.8"></span><span class="uk-visible@s">このサイトについて</span></a></li>
             </ul>
         </div>
     </div>
-    <div class="uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-position-fixed uk-width-expand uk-height-viewport uk-background-cover" data-src="assets/img/first_view.png" uk-img>
-        <article class="uk-comment uk-comment-primary uk-border-rounded uk-padding-small uk-text-center">
-            <h1 class="uk-h1">存在しないページです</h1>
-            <a href="./" class="uk-text-decoration-none">トップページへ</a>
-        </article>
-    </div>
+    <main class="uk-margin-mediun-top uk-width-5-6@s uk-width-3-4@l uk-margin-auto uk-background-secondary">
+        <div class="uk-section uk-section-default uk-height-viewport uk-flex uk-flex-column uk-flex-center uk-flex-middle">
+            <h3 class="uk-h3">存在しないページです</h3>
+            <small><a href="./" class="uk-text-decoration-none">トップページへ</a></small>
+        </div>
+    </main>
 </body>
 
 </html>
